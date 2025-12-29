@@ -30,18 +30,9 @@ const FloatingCard = ({
         <motion.div
             ref={elementRef}
             className={`floating-card ${className}`}
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1
-            }}
-            transition={{
-                delay,
-                duration: 0.6,
-                type: 'spring',
-                stiffness: 100
-            }}
+            }
+            }
+            }
             style={enableTilt ? {
                 transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
                 transition: 'transform 0.1s ease-out'
@@ -60,3 +51,4 @@ const FloatingCard = ({
 };
 
 export default FloatingCard;
+
