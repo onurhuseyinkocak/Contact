@@ -208,33 +208,63 @@ export const cvData: CVData = {
     certificates: [
         {
             id: "1",
-            title: "Conduct UX Research and Test Early Concepts",
-            issuer: "İş Bankası ProSchool",
-            date: "2024"
+            title: "Google UX Design Professional Certificate",
+            issuer: "Google / Coursera",
+            date: "June 2024",
+            credentialUrl: "https://coursera.org/share/32a3b220aaeb8b984646a5296d79a171",
+            image: "/certificates/google-ux-design.jpg"
         },
         {
             id: "2",
-            title: "Create High-Fidelity Designs and Prototypes in Figma",
-            issuer: "Google/Coursera",
-            date: "2024"
+            title: "Associate Degree in Computer Programming",
+            issuer: "Anadolu University - Open Education Faculty",
+            date: "January 2025",
+            image: "/certificates/anadolu-diploma.jpg"
         },
         {
             id: "3",
-            title: "Mobile Frontend Training",
-            issuer: "Professional Training",
-            date: "2024"
+            title: "Mobile Frontend Software Expertise Training",
+            issuer: "Siliconmade Academy / ICCW Certified",
+            date: "March 2025",
+            credentialUrl: "https://iccw.us/iccw/admin/view-certificate/59440/21",
+            image: "/certificates/mobile-frontend-iccw.jpg"
         },
         {
             id: "4",
-            title: "Fundamentals of Programming Training",
-            issuer: "Professional Training",
-            date: "2023"
+            title: "Mobile Frontend Training Certificate",
+            issuer: "Siliconmade Academy",
+            date: "March 2025",
+            image: "/certificates/mobile-frontend-siliconmade.jpg"
         },
         {
             id: "5",
-            title: "Film Critic – Website Administrator",
-            issuer: "Publication/Writing",
-            date: "2020"
+            title: "Fundamentals of Programming Training",
+            issuer: "Siliconmade Academy",
+            date: "October 2024",
+            image: "/certificates/fundamentals-programming.jpg"
+        },
+        {
+            id: "6",
+            title: "İş Bankası ProSchool IT Class",
+            issuer: "TopTalent Business School / Türkiye İş Bankası",
+            date: "December 2022",
+            credentialUrl: "https://toptalent.co/businessschool/verify/73612CCE2D-73612BE302-73435EA50D/",
+            image: "/certificates/toptalent-it-class.jpg"
+        },
+        {
+            id: "7",
+            title: "English Proficiency Test - Advanced CEFR C1",
+            issuer: "TopTalent Business School",
+            date: "July 2022",
+            credentialUrl: "https://toptalent.co/businessschool/verify/735B36ED89-735B36C48A-73435EA50D/",
+            image: "/certificates/toptalent-english-c1.jpg"
+        },
+        {
+            id: "8",
+            title: "Mobile Frontend Software Expertise Certificate - 184 Hours",
+            issuer: "Mudanya University - MUDUSEM",
+            date: "March 2025",
+            image: "/certificates/mudanya-mobile-frontend.jpg"
         }
     ]
 };

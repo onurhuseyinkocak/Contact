@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { cvData } from '../data/data';
 import './Hero.css';
 
-const sections = ['hero', 'about', 'projects', 'experience', 'contact'];
+const sections = ['hero', 'about', 'projects', 'experience', 'certificates', 'contact'];
 
 const Hero = () => {
     const { personal } = cvData;
@@ -186,35 +186,66 @@ const Hero = () => {
                         }}
                     />
                 </div>
+            </div>
 
-                {/* Smart Scroll Navigator */}
+            {/* Smart Scroll Navigator - Fixed Position, Always Visible */}
+            <motion.div
+                className="scroll-navigator"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5 }}
+                onClick={handleScrollNavigate}
+                style={{
+                    position: 'fixed',
+                    bottom: '2rem',
+                    right: '2rem',
+                    zIndex: 1000,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                }}
+            >
                 <motion.div
-                    className="scroll-navigator"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
-                    onClick={handleScrollNavigate}
+                    className="scroll-nav-button"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={{ y: isAtBottom ? [0, -10, 0] : [0, 10, 0] }}
+                    transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        background: 'rgba(102, 126, 234, 0.2)',
+                        backdropFilter: 'blur(10px)',
+                        border: '2px solid rgba(102, 126, 234, 0.3)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.5rem'
+                    }}
                 >
-                    <motion.div
-                        className="scroll-nav-button"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        animate={{ y: isAtBottom ? [0, -10, 0] : [0, 10, 0] }}
-                        transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    >
-                        <div className="scroll-arrow">
-                            {isAtBottom ? '↑' : '↓'}
-                        </div>
-                    </motion.div>
-                    <div className="scroll-nav-text">
-                        {isAtBottom ? 'Top' : 'Next'}
+                    <div className="scroll-arrow">
+                        {isAtBottom ? '↑' : '↓'}
                     </div>
                 </motion.div>
-            </div>
+                <div
+                    className="scroll-nav-text"
+                    style={{
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        color: 'var(--color-text-secondary)',
+                        textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                    }}
+                >
+                    {isAtBottom ? 'Top' : 'Next'}
+                </div>
+            </motion.div>
         </section>
     );
 };
