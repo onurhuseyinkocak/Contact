@@ -137,19 +137,16 @@ const Hero = () => {
                 </motion.div>
 
                 {/* Scroll Indicator */}
-                <motion.button type="button" className="scroll-indicator-new"
+                {/* Scroll Indicator */}
+                <button 
+                    type="button" 
+                    className="scroll-indicator-new" 
                     onClick={handleScrollNavigate}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2 }}
                 >
                     <div className="scroll-icon">
                         {isAtBottom ? '⬆️' : '⬇️'}
                     </div>
-                    <span className="scroll-text">
-                        {isAtBottom ? 'TOP' : 'NEXT'}
-                    </span>
-                </motion.button>
+                </button>
             </div>
 
             {/* Project Quote Modal */}
