@@ -6,11 +6,12 @@ import Experience from './components/Experience'
 import Certificates from './components/Certificates'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import ParticleBackground from './components/ParticleBackground'
 import './App.css'
 
 const App = () => {
   return (
-    <div className="app">
+    <div className="app">`n      <ParticleBackground />
       <Navbar />
       <main className="main-content">
         <Hero />
