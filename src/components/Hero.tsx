@@ -64,41 +64,48 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
+                    {/* Availability Badge */}
                     <motion.div
-                        className="hero-greeting"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
+                        className="availability-badge"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2, type: "spring" }}
                     >
-                        👋 Hello, I'm
+                        <span className="status-dot"></span>
+                        Available for Hire
                     </motion.div>
 
                     <motion.h1
-                        className="hero-name"
+                        className="hero-headline"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                     >
-                        {personal.name}
+                        Ship Your App in
+                        <span className="highlight-text"> Days, Not Months</span>
                     </motion.h1>
 
                     <motion.div
-                        className="hero-title"
+                        className="hero-subheadline"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
                     >
-                        {personal.title}
+                        Vibe Coding Expert | AI-Powered Development | React Native Specialist
                     </motion.div>
 
-                    <motion.p
-                        className="hero-tagline"
+                    {/* Value Propositions */}
+                    <motion.ul
+                        className="hero-value-props"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.8 }}
                     >
-                        {personal.tagline}
-                    </motion.p>
+                        <li><span className="check-icon">✅</span> 6+ Apps Successfully Launched & Live</li>
+                        <li><span className="check-icon">✅</span> 10x Faster Development Guaranteed</li>
+                        <li><span className="check-icon">✅</span> 8+ Professional Certifications</li>
+                        <li><span className="check-icon">✅</span> Ready to Start Tomorrow</li>
+                    </motion.ul>
 
                     <motion.div
                         className="hero-cta"
@@ -108,19 +115,19 @@ const Hero = () => {
                     >
                         <motion.button
                             className="btn btn-primary btn-lg"
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.05, boxShadow: "0 10px 40px rgba(102, 126, 234, 0.4)" }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => scrollToSection('projects')}
+                            onClick={() => scrollToSection('contact')}
                         >
-                            View My Work
+                            <span>🚀</span> Start Your Project
                         </motion.button>
                         <motion.button
                             className="btn btn-secondary btn-lg"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => scrollToSection('contact')}
+                            onClick={() => scrollToSection('projects')}
                         >
-                            Contact Me
+                            <span>👀</span> See Live Apps
                         </motion.button>
                     </motion.div>
 
@@ -131,18 +138,18 @@ const Hero = () => {
                         transition={{ delay: 1.2 }}
                     >
                         <div className="stat-item">
-                            <div className="stat-number">{cvData.projects.length}+</div>
-                            <div className="stat-label">Projects</div>
+                            <div className="stat-number">6+</div>
+                            <div className="stat-label">Apps Shipped & Live</div>
                         </div>
                         <div className="stat-divider"></div>
                         <div className="stat-item">
-                            <div className="stat-number">{cvData.experience.length}+</div>
-                            <div className="stat-label">Years Experience</div>
+                            <div className="stat-number">3</div>
+                            <div className="stat-label">Days Avg Launch</div>
                         </div>
                         <div className="stat-divider"></div>
                         <div className="stat-item">
-                            <div className="stat-number">{cvData.skills.filter(s => s.category === 'nocode').length}+</div>
-                            <div className="stat-label">No-Code Tools</div>
+                            <div className="stat-number">12+</div>
+                            <div className="stat-label">Vibe Platforms</div>
                         </div>
                     </motion.div>
                 </motion.div>

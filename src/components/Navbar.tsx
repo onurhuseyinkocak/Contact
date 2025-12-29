@@ -45,7 +45,23 @@ const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           onClick={() => scrollToSection('hero')}
         >
-          <span className="brand-text">OH</span>
+          <div className="brand-logo">
+            <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#667eea" />
+                  <stop offset="100%" stopColor="#764ba2" />
+                </linearGradient>
+              </defs>
+              <path d="M50 10 L60 45 L45 45 L55 90 L30 50 L45 50 L35 10 Z" fill="url(#logoGradient)" />
+              <text x="70" y="30" fontSize="36" fill="url(#logoGradient)" fontWeight="bold" fontFamily="monospace">{'<'}</text>
+              <text x="70" y="80" fontSize="36" fill="url(#logoGradient)" fontWeight="bold" fontFamily="monospace">{'>'}</text>
+            </svg>
+          </div>
+          <div className="brand-text-container">
+            <span className="brand-text">Onur Koçak</span>
+            <span className="brand-tagline">Vibe Coding</span>
+          </div>
         </motion.div>
 
         {/* Desktop Menu */}
@@ -66,6 +82,17 @@ const Navbar = () => {
             </motion.li>
           ))}
         </ul>
+
+        {/* Hire Me CTA Button */}
+        <motion.button
+          className="navbar-hire-btn"
+          whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(102, 126, 234, 0.5)" }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => scrollToSection('contact')}
+        >
+          <span className="hire-btn-icon">⚡</span>
+          Hire Me
+        </motion.button>
 
         {/* Mobile Menu Button */}
         <button
