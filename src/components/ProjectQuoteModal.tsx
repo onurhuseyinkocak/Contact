@@ -131,49 +131,55 @@ const ProjectQuoteModal = ({ isOpen, onClose }: ProjectQuoteModalProps) => {
     const formatEmailMessage = (data: FormData): string => {
         const estimatedPrice = calculateEstimatedPrice();
         
-        return [
-            ' NEW PROJECT QUOTE REQUEST',
-            '================================',
-            '',
-            ' CLIENT INFORMATION',
-            '--------------------------------',
-            'Name:     ' + data.fullName,
-            'Email:    ' + data.email,
-            'Phone:    ' + (data.phone || 'Not provided'),
-            'Company:  ' + (data.company || 'Not provided'),
-            '',
-            '--------------------------------',
-            'Category:   ' + data.appCategory,
-            'App Type:   ' + data.appType,
-            'Platforms:  ' + (data.platforms.length > 0 ? data.platforms.join(', ') : 'Not specified'),
-            '',
-            ' DESIGN & FEATURES',
-            '--------------------------------',
-            'Design Preference:  ' + data.designPreference,
-            'Authentication:     ' + data.authentication,
-            '',
-            'Key Features:',
-            data.keyFeatures,
-            '',
-            ' TECHNICAL REQUIREMENTS',
-            '--------------------------------',
-            'Backend/Database:      ' + data.backend,
-            'Payment Integration:   ' + data.paymentIntegration,
-            'Push Notifications:    ' + data.pushNotifications,
-            '',
-            ' TIMELINE & BUDGET',
-            '--------------------------------',
-            'Desired Timeline:  ' + data.timeline,
-            'Budget Range:      ' + data.budget,
-            '',
-            data.additionalDetails ? ' ADDITIONAL DETAILS\\n--------------------------------\\n' + data.additionalDetails + '\\n' : '',
-            ' ESTIMATED PRICE: $' + estimatedPrice.toLocaleString(),
-            '  Automated estimate. Final pricing via email after review.',
-            '',
-            '---',
-            ' From: CV Website - Project Quote Form',
-            ' Date: ' + new Date().toLocaleString('tr-TR', { dateStyle: 'full', timeStyle: 'short' })
-        ].filter(line => line !== '').join('\\n');
+        const additionalSection = data.additionalDetails 
+            ? `📝 ADDITIONAL DETAILS
+--------------------------------
+${data.additionalDetails}
+
+` 
+            : '';
+        
+        return `🚀 NEW PROJECT QUOTE REQUEST
+================================
+
+👤 CLIENT INFORMATION
+--------------------------------
+Name:     ${data.fullName}
+Email:    ${data.email}
+Phone:    ${data.phone || 'Not provided'}
+Company:  ${data.company || 'Not provided'}
+
+💡 PROJECT DETAILS
+--------------------------------
+Category:   ${data.appCategory}
+App Type:   ${data.appType}
+Platforms:  ${data.platforms.length > 0 ? data.platforms.join(', ') : 'Not specified'}
+
+🎨 DESIGN & FEATURES
+--------------------------------
+Design Preference:  ${data.designPreference}
+Authentication:     ${data.authentication}
+
+Key Features:
+${data.keyFeatures}
+
+⚙️ TECHNICAL REQUIREMENTS
+--------------------------------
+Backend/Database:      ${data.backend}
+Payment Integration:   ${data.paymentIntegration}
+Push Notifications:    ${data.pushNotifications}
+
+⏰ TIMELINE & BUDGET
+--------------------------------
+Desired Timeline:  ${data.timeline}
+Budget Range:      ${data.budget}
+
+${additionalSection}💰 ESTIMATED PRICE: $${estimatedPrice.toLocaleString()}
+⚠️  Automated estimate. Final pricing via email after review.
+
+---
+📧 From: CV Website - Project Quote Form
+📅 Date: ${new Date().toLocaleString('tr-TR', { dateStyle: 'full', timeStyle: 'short' })}`;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {

@@ -137,8 +137,7 @@ const Hero = () => {
                 </motion.div>
 
                 {/* Scroll Indicator */}
-                <motion.button
-                    className="scroll-indicator-new"
+                <motion.button type="button" className="scroll-indicator-new"
                     onClick={handleScrollNavigate}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -163,3 +162,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
