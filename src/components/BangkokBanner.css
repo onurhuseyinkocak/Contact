@@ -1,0 +1,245 @@
+/* Bangkok Announcement Banner */
+.bangkok-banner {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: calc(100% - 2rem);
+    max-width: 800px;
+    pointer-events: auto;
+}
+
+.bangkok-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 1rem 1.75rem;
+    background: linear-gradient(135deg,
+            rgba(16, 185, 129, 0.12) 0%,
+            rgba(5, 150, 105, 0.08) 50%,
+            rgba(4, 120, 87, 0.12) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 32px rgba(16, 185, 129, 0.15),
+        0 0 40px rgba(16, 185, 129, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Status Indicator with Pulse Animation */
+.bangkok-status-indicator {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.bangkok-pulse-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 12px rgba(16, 185, 129, 0.8),
+        0 0 24px rgba(16, 185, 129, 0.4);
+    animation: bangkok-dot-pulse 3s ease-in-out infinite;
+}
+
+.bangkok-pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba(16, 185, 129, 0.6);
+    border-radius: 50%;
+    animation: bangkok-ring-pulse 3s ease-in-out infinite;
+}
+
+@keyframes bangkok-dot-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow:
+            0 0 12px rgba(16, 185, 129, 0.8),
+            0 0 24px rgba(16, 185, 129, 0.4);
+    }
+
+    50% {
+        opacity: 0.85;
+        transform: translate(-50%, -50%) scale(1.1);
+        box-shadow:
+            0 0 20px rgba(16, 185, 129, 1),
+            0 0 40px rgba(16, 185, 129, 0.6);
+    }
+}
+
+@keyframes bangkok-ring-pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(2.2);
+    }
+}
+
+/* Text Content */
+.bangkok-text-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bangkok-location-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.bangkok-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.bangkok-highlight {
+    color: #10b981;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.bangkok-dates {
+    color: var(--color-text-primary);
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    background: rgba(16, 185, 129, 0.15);
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.bangkok-purpose {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+/* CTA Button */
+.bangkok-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 4px 16px rgba(16, 185, 129, 0.4),
+        0 0 20px rgba(16, 185, 129, 0.2);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.bangkok-cta-button:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow:
+        0 6px 24px rgba(16, 185, 129, 0.6),
+        0 0 30px rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+}
+
+.bangkok-cta-icon {
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bangkok-banner {
+        top: 70px;
+        width: calc(100% - 1.5rem);
+    }
+
+    .bangkok-banner-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        text-align: center;
+    }
+
+    .bangkok-status-indicator {
+        display: none;
+    }
+
+    .bangkok-message {
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .bangkok-cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bangkok-banner {
+        top: 65px;
+    }
+
+    .bangkok-banner-content {
+        padding: 0.85rem 1rem;
+        border-radius: 16px;
+    }
+
+    .bangkok-location-icon {
+        font-size: 1.25rem;
+    }
+
+    .bangkok-message {
+        font-size: 0.875rem;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .bangkok-pulse-dot,
+    .bangkok-pulse-ring {
+        animation: none;
+    }
+
+    .bangkok-pulse-dot {
+        opacity: 1;
+    }
+
+    .bangkok-pulse-ring {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}

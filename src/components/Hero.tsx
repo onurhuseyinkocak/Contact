@@ -25,16 +25,29 @@ const Hero = () => {
     return (
         <section id="hero" className="hero-section">
             <div className="hero-container">
-                {/* Availability Badge - Floating */}
+                {/* Bangkok Announcement Badge - Floating */}
                 <FloatingCard
-                    className="availability-card"
+                    className="availability-card bangkok-card"
                     delay={0.1}
                     floatIntensity="low"
                     enableTilt={false}
                 >
-                    <div className="availability-badge-new">
-                        <span className="status-dot-new"></span>
-                        <span>Available for Hire</span>
+                    <div className="bangkok-badge">
+                        <span className="bangkok-dot"></span>
+                        <span className="bangkok-text">
+                            <img
+                                src="https://flagcdn.com/w40/th.png"
+                                alt="Thailand"
+                                className="bangkok-flag-img"
+                            />
+                            In Bangkok Jan 16-23
+                        </span>
+                        <button
+                            className="bangkok-meet-btn"
+                            onClick={() => scrollToSection('contact')}
+                        >
+                            Let's Meet
+                        </button>
                     </div>
                 </FloatingCard>
 

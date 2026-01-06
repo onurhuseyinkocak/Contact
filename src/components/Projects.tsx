@@ -11,7 +11,6 @@ const Projects = () => {
         { id: 'all', label: 'All Projects' },
         { id: 'mobile', label: 'Mobile Apps' },
         { id: 'web', label: 'Web Apps' },
-        { id: 'nocode', label: 'No-Code' },
     ];
 
     const filteredProjects = filter === 'all'

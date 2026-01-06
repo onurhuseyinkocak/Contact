@@ -6,7 +6,7 @@ export const cvData: CVData = {
         name: "Onur Hüseyin Koçak",
         title: "Vibe Coding Specialist & AI-Assisted Developer | React Native Enthusiast",
         tagline: "From Zero to Launch in Days — Building AI-Powered Apps that Solve Real Problems",
-        bio: "I turn ideas into real, revenue-generating applications—fast. Expert in vibe coding and AI-assisted development platforms, I've built and shipped multiple mobile & web apps from concept to deployment. With a unique blend of sales psychology, product thinking, and rapid development skills, I create apps that users love and businesses need. Currently expanding my React and React Native expertise to complement my vibe coding superpowers.",
+        bio: "I turn ideas into real, revenue-generating applications—fast. Expert in vibe coding and AI-assisted development platforms, I've built and shipped multiple mobile & web apps from concept to deployment. With a unique blend of sales psychology, product thinking, and rapid development skills, I create apps that users love and businesses need. Currently expanding my React and React Native expertise to strengthen my development capabilities.",
         email: "onurhuseyinkocak1@gmail.com",
         location: "Alanya, Antalya, Turkey",
         phone: "+90 544 713 15 50",
