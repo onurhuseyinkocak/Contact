@@ -101,6 +101,7 @@ const Certificates = () => {
                                     <img
                                         src={selectedCert.image}
                                         alt={selectedCert.title}
+                                        className="modal-image"
                                     />
                                 </div>
                             </motion.div>

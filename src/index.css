@@ -476,8 +476,10 @@ a:hover {
   :root {
     --font-size-5xl: 2.5rem;
     --font-size-4xl: 2rem;
-    --spacing-3xl: 3rem;
-    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 2.5rem;
+    --spacing-2xl: 2rem;
+    --spacing-xl: 1.75rem;
+    --spacing-lg: 1.25rem;
   }
 
   /* Native app touch-friendly spacing */
@@ -497,7 +499,7 @@ a:hover {
   }
 
   .container {
-    padding: 0 var(--spacing-md);
+    padding: 0 1rem;
   }
 
   h1 {
@@ -536,11 +538,12 @@ a:hover {
     --font-size-4xl: 1.75rem;
     --font-size-3xl: 1.5rem;
     --spacing-lg: 1rem;
-    --spacing-xl: 1.5rem;
+    --spacing-xl: 1.25rem;
+    --spacing-md: 1rem;
   }
 
   .container {
-    padding: 0 var(--spacing-md);
+    padding: 0 1rem;
   }
 
   /* Bottom sheet style spacing for mobile */
