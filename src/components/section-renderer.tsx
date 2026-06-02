@@ -193,7 +193,7 @@ export function SectionRenderer() {
                   const sectionIndex = sections.indexOf(section);
                   const isCurrent = active.id === section.id;
                   const shouldWarm =
-                    sectionIndex > activeIndex &&
+                    sectionIndex >= activeIndex - 1 &&
                     sectionIndex <= activeIndex + VIDEO_PRELOAD_LOOKAHEAD;
                   return (
                     <motion.div
@@ -261,7 +261,7 @@ export function SectionRenderer() {
                   isMobileViewport={isMobileViewport}
                   shouldLoadVideo={
                     isMobileViewport &&
-                    i >= activeIndex &&
+                    i >= activeIndex - 1 &&
                     i <= activeIndex + VIDEO_PRELOAD_LOOKAHEAD
                   }
                 />
