@@ -52,6 +52,7 @@ export function DepthStage({
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
+    if (!canCreateWebGLContext()) return;
 
     let animationFrame = 0;
     const isSmallScreen = window.innerWidth < 768;
@@ -549,4 +550,17 @@ function disposeScene(scene: THREE.Scene) {
 
 function randomBetween(min: number, max: number) {
   return min + Math.random() * (max - min);
+}
+
+function canCreateWebGLContext() {
+  try {
+    const canvas = document.createElement("canvas");
+    const context =
+      canvas.getContext("webgl2") ||
+      canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl");
+    return Boolean(context);
+  } catch {
+    return false;
+  }
 }
