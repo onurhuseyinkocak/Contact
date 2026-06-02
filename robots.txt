@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /Contact/
+
+Host: https://onurhuseyinkocak.github.io
+Sitemap: https://onurhuseyinkocak.github.io/Contact/sitemap.xml
