@@ -1,7 +1,7 @@
-:HL["/Contact/_next/static/chunks/0b~72fpv3npde.css","style"]
+:HL["/Contact/_next/static/chunks/0h.6o.6~u5mdk.css","style"]
 :HL["/Contact/_next/static/media/051742360c26797e-s.p.0f97p8c3305p~.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Contact/_next/static/media/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Contact/videos/didnthappen-instant.mp4?v=20260602-hard-start","video",{"type":"video/mp4","fetchPriority":"high"}]
 :HL["/Contact/videos/dreammining-instant.mp4?v=20260602-hard-start","video",{"type":"video/mp4","fetchPriority":"high"}]
 :HL["/Contact/videos/promtable-instant.mp4?v=20260602-hard-start","video",{"type":"video/mp4","fetchPriority":"high"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"PsbzBqrL8Q50jpwFqMdlx"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"rzPUbq3ip4aaYy7OMSjOy"}
