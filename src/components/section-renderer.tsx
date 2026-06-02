@@ -144,9 +144,7 @@ export function SectionRenderer() {
               sections
                 .filter((section) => section.videoSrc && section.id !== "hero")
                 .map((section) => {
-                  const sectionIndex = sections.indexOf(section);
                   const isCurrent = active.id === section.id;
-                  const isNearActive = Math.abs(sectionIndex - activeIndex) <= 1;
                   return (
                     <motion.div
                       key={section.id}
@@ -166,7 +164,7 @@ export function SectionRenderer() {
                       <ProjectVideo
                         section={section}
                         active={isCurrent}
-                        shouldLoad={isCurrent || isNearActive}
+                        shouldLoad={isCurrent}
                       />
                     </motion.div>
                   );
@@ -211,9 +209,7 @@ export function SectionRenderer() {
                   section={section}
                   isActive={i === activeIndex}
                   isMobileViewport={isMobileViewport}
-                  shouldLoadVideo={
-                    isMobileViewport && Math.abs(i - activeIndex) <= 1
-                  }
+                  shouldLoadVideo={isMobileViewport && i === activeIndex}
                 />
               )}
             </section>
@@ -729,6 +725,16 @@ function ProjectVideo({
           loop
           playsInline
           preload="auto"
+          onLoadedData={(event) => {
+            if (active) {
+              void event.currentTarget.play().catch(() => undefined);
+            }
+          }}
+          onCanPlay={(event) => {
+            if (active) {
+              void event.currentTarget.play().catch(() => undefined);
+            }
+          }}
           aria-label={`${section.title} product video`}
         />
       ) : (
