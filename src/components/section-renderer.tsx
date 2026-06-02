@@ -669,8 +669,19 @@ function ProjectVideo({
       }
     };
 
+    const restoreVideoSource = () => {
+      if (section.videoSrc && video.getAttribute("src") !== section.videoSrc) {
+        video.setAttribute("src", section.videoSrc);
+        return true;
+      }
+
+      return false;
+    };
+
     if (active) {
-      if (video.readyState >= 2) {
+      const restoredSource = restoreVideoSource();
+
+      if (video.readyState >= 2 && !restoredSource) {
         playActiveVideo();
       } else {
         video.addEventListener("canplay", playActiveVideo, { once: true });
@@ -679,11 +690,16 @@ function ProjectVideo({
     } else {
       video.pause();
       video.currentTime = 0;
+      video.removeAttribute("src");
+      video.load();
     }
 
     return () => {
       cancelled = true;
       video.removeEventListener("canplay", playActiveVideo);
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
     };
   }, [active, shouldLoad, section.videoSrc]);
 
