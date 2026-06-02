@@ -15,7 +15,6 @@ export function SectionRenderer() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [splashDone, setSplashDone] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
-  const [warmAllVideos, setWarmAllVideos] = useState(false);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const reduced = useReducedMotion();
   const active = sections[activeIndex];
@@ -37,12 +36,6 @@ export function SectionRenderer() {
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
-
-  useEffect(() => {
-    if (!splashDone) return;
-    const timer = window.setTimeout(() => setWarmAllVideos(true), 900);
-    return () => window.clearTimeout(timer);
-  }, [splashDone]);
 
   /* Intersection observer — runs after first render so refs are populated */
   useEffect(() => {
@@ -147,38 +140,37 @@ export function SectionRenderer() {
               <HeroSignalPanel />
             </motion.div>
 
-            {sections
-              .filter((section) => section.videoSrc && section.id !== "hero")
-              .map((section) => {
-                const isCurrent = !isMobileViewport && active.id === section.id;
-                return (
-                  <motion.div
-                    key={section.id}
-                    animate={
-                      isCurrent
-                        ? { opacity: 1, y: 0, scale: 1 }
-                        : { opacity: 0, y: 18, scale: 0.98 }
-                    }
-                    initial={false}
-                    transition={{
-                      duration: reduced ? 0.1 : 0.42,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="absolute inset-0 flex items-center justify-center pr-8 lg:pr-14"
-                    style={{ pointerEvents: isCurrent ? "auto" : "none" }}
-                  >
-                    <ProjectVideo
-                      section={section}
-                      active={isCurrent}
-                      shouldLoad
-                    />
-                  </motion.div>
-                );
-              })}
+            {!isMobileViewport &&
+              sections
+                .filter((section) => section.videoSrc && section.id !== "hero")
+                .map((section) => {
+                  const isCurrent = active.id === section.id;
+                  return (
+                    <motion.div
+                      key={section.id}
+                      animate={
+                        isCurrent
+                          ? { opacity: 1, y: 0, scale: 1 }
+                          : { opacity: 0, y: 18, scale: 0.98 }
+                      }
+                      initial={false}
+                      transition={{
+                        duration: reduced ? 0.1 : 0.42,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      className="absolute inset-0 flex items-center justify-center pr-8 lg:pr-14"
+                      style={{ pointerEvents: isCurrent ? "auto" : "none" }}
+                    >
+                      <ProjectVideo
+                        section={section}
+                        active={isCurrent}
+                        shouldLoad
+                      />
+                    </motion.div>
+                  );
+                })}
           </div>
         </div>
-
-        <VideoWarmup activeIndex={activeIndex} warmAll={warmAllVideos} />
 
         {/* Progress bar */}
         <motion.div
@@ -225,42 +217,6 @@ export function SectionRenderer() {
         </div>
       </div>
     </>
-  );
-}
-
-function VideoWarmup({
-  activeIndex,
-  warmAll,
-}: {
-  activeIndex: number;
-  warmAll: boolean;
-}) {
-  const warmSections = sections
-    .map((section, index) => ({ section, index }))
-    .filter(
-      ({ section, index }) =>
-        section.videoSrc &&
-        section.id !== "hero" &&
-        (warmAll || Math.abs(index - activeIndex) <= 2)
-    );
-
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 h-px w-px overflow-hidden opacity-0"
-    >
-      {warmSections.map(({ section }) => (
-        <video
-          key={section.id}
-          src={section.videoSrc}
-          poster={section.videoPoster}
-          muted
-          playsInline
-          preload="auto"
-          tabIndex={-1}
-        />
-      ))}
-    </div>
   );
 }
 
