@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { mediaVersion } from "@/data/sections";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -31,6 +32,13 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const assetBase = process.env.GITHUB_PAGES === "true" ? "/Contact" : "";
+const criticalVideoPreloads = [
+  "videos/didnthappen-preview.mp4",
+  "videos/dreammining-preview.mp4",
+  "videos/promtable-preview.mp4",
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,6 +46,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        {criticalVideoPreloads.map((path) => (
+          <link
+            key={path}
+            rel="preload"
+            as="video"
+            href={`${assetBase}/${path}?v=${mediaVersion}`}
+            type="video/mp4"
+            fetchPriority="high"
+          />
+        ))}
+      </head>
       <body className="grain antialiased">{children}</body>
     </html>
   );

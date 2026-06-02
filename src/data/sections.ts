@@ -28,7 +28,7 @@ export interface Section {
   characterScale?: number;
 }
 
-const mediaVersion = "20260602-video-ready";
+export const mediaVersion = "20260602-instant-preview";
 const media = (path: string) => `${path}?v=${mediaVersion}`;
 
 export const sections: Section[] = [
@@ -56,7 +56,7 @@ export const sections: Section[] = [
       "Live links, demos, App Store releases",
       "AI-native build workflow",
     ],
-    videoSrc: media("videos/vibecodingturkey-demo.mp4"),
+    videoSrc: media("videos/vibecodingturkey-preview.mp4"),
     videoPoster: media("posters/vibecodingturkey-demo.jpg"),
     videoOrientation: "desktop",
     characterScale: 1.05,
@@ -88,7 +88,7 @@ export const sections: Section[] = [
     stack: ["SwiftUI", "SwiftData", "Adapty"],
     status: "App Store",
     outcome: "A worry-to-proof habit loop with subscription-ready monetization.",
-    videoSrc: media("videos/didnthappen-demo.mp4"),
+    videoSrc: media("videos/didnthappen-preview.mp4"),
     videoPoster: media("posters/didnthappen-demo.jpg"),
     videoOrientation: "phone",
     characterRotation: -2,
@@ -120,7 +120,7 @@ export const sections: Section[] = [
     stack: ["iOS", "Android", "Web", "Whisper"],
     status: "Live web",
     outcome: "Voice dream logging and symbolic AI interpretation across platforms.",
-    videoSrc: media("videos/dreammining-demo.mp4"),
+    videoSrc: media("videos/dreammining-preview.mp4"),
     videoPoster: media("posters/dreammining-demo.jpg"),
     videoOrientation: "desktop",
     characterRotation: 3,
@@ -155,7 +155,7 @@ export const sections: Section[] = [
     stack: ["Next.js", "Supabase", "SwiftUI"],
     status: "Web + App Store",
     outcome: "Prompt discovery, copy/share flows, and a growing reusable prompt library.",
-    videoSrc: media("videos/promtable-demo-web.mp4"),
+    videoSrc: media("videos/promtable-preview.mp4"),
     videoPoster: media("posters/promtable-demo.jpg"),
     videoOrientation: "phone",
     characterRotation: -1,
@@ -187,7 +187,7 @@ export const sections: Section[] = [
     stack: ["Next.js", "AI agents", "Community"],
     status: "Live platform",
     outcome: "A Turkish product-building education brand around AI coding workflows.",
-    videoSrc: media("videos/vibecodingturkey-demo.mp4"),
+    videoSrc: media("videos/vibecodingturkey-preview.mp4"),
     videoPoster: media("posters/vibecodingturkey-demo.jpg"),
     videoOrientation: "desktop",
     characterScale: 1.08,
@@ -220,7 +220,7 @@ export const sections: Section[] = [
     stack: ["Medusa", "3D printing", "AI design"],
     status: "Live commerce",
     outcome: "A digital-to-physical product lab with storefront and product demos.",
-    videoSrc: media("videos/xforgea3d-demo.mp4"),
+    videoSrc: media("videos/xforgea3d-preview.mp4"),
     videoPoster: media("posters/xforgea3d-demo.jpg"),
     videoOrientation: "desktop",
     characterRotation: -3,
@@ -252,7 +252,7 @@ export const sections: Section[] = [
     stack: ["Next.js", "FastAPI", "Supabase", "Cron"],
     status: "Live system",
     outcome: "Content, growth, and operations automation controlled from one interface.",
-    videoSrc: media("videos/onarika-demo.mp4"),
+    videoSrc: media("videos/onarika-preview.mp4"),
     videoPoster: media("posters/onarika-demo.jpg"),
     videoOrientation: "desktop",
     characterRotation: 1,
