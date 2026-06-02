@@ -11,6 +11,8 @@ import { MagneticButton } from "./magnetic-button";
 import { CursorGlow } from "./cursor-glow";
 import { NavDots } from "./nav-dots";
 
+const VIDEO_PRELOAD_LOOKAHEAD = 2;
+
 export function SectionRenderer() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [splashDone, setSplashDone] = useState(false);
@@ -144,7 +146,11 @@ export function SectionRenderer() {
               sections
                 .filter((section) => section.videoSrc && section.id !== "hero")
                 .map((section) => {
+                  const sectionIndex = sections.indexOf(section);
                   const isCurrent = active.id === section.id;
+                  const shouldWarm =
+                    sectionIndex > activeIndex &&
+                    sectionIndex <= activeIndex + VIDEO_PRELOAD_LOOKAHEAD;
                   return (
                     <motion.div
                       key={section.id}
@@ -164,7 +170,7 @@ export function SectionRenderer() {
                       <ProjectVideo
                         section={section}
                         active={isCurrent}
-                        shouldLoad={isCurrent}
+                        shouldLoad={isCurrent || shouldWarm}
                       />
                     </motion.div>
                   );
@@ -209,7 +215,11 @@ export function SectionRenderer() {
                   section={section}
                   isActive={i === activeIndex}
                   isMobileViewport={isMobileViewport}
-                  shouldLoadVideo={isMobileViewport && i === activeIndex}
+                  shouldLoadVideo={
+                    isMobileViewport &&
+                    i >= activeIndex &&
+                    i <= activeIndex + VIDEO_PRELOAD_LOOKAHEAD
+                  }
                 />
               )}
             </section>
@@ -386,7 +396,7 @@ function HeroSignalPanel() {
 
       <div className="mt-6 border-y border-white/10 py-5">
         <p className="max-w-sm text-2xl font-semibold leading-tight text-white">
-          I turn rough ideas into shipped AI products people can open and use.
+          I take ambiguous product briefs from concept to production.
         </p>
         <div className="mt-5 grid grid-cols-3 gap-3">
           {metrics.map((metric) => (
@@ -649,6 +659,23 @@ function ProjectVideo({
     const video = videoRef.current;
     if (!video || !shouldLoad) return;
 
+    if (section.videoSrc && video.getAttribute("src") !== section.videoSrc) {
+      video.setAttribute("src", section.videoSrc);
+    }
+
+    video.load();
+
+    return () => {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    };
+  }, [shouldLoad, section.videoSrc]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
     let cancelled = false;
 
     const playActiveVideo = () => {
@@ -669,37 +696,20 @@ function ProjectVideo({
       }
     };
 
-    const restoreVideoSource = () => {
-      if (section.videoSrc && video.getAttribute("src") !== section.videoSrc) {
-        video.setAttribute("src", section.videoSrc);
-        return true;
-      }
-
-      return false;
-    };
-
     if (active) {
-      const restoredSource = restoreVideoSource();
-
-      if (video.readyState >= 2 && !restoredSource) {
+      if (video.readyState >= 2) {
         playActiveVideo();
       } else {
         video.addEventListener("canplay", playActiveVideo, { once: true });
-        video.load();
       }
     } else {
       video.pause();
       video.currentTime = 0;
-      video.removeAttribute("src");
-      video.load();
     }
 
     return () => {
       cancelled = true;
       video.removeEventListener("canplay", playActiveVideo);
-      video.pause();
-      video.removeAttribute("src");
-      video.load();
     };
   }, [active, shouldLoad, section.videoSrc]);
 

@@ -28,7 +28,7 @@ export interface Section {
   characterScale?: number;
 }
 
-const mediaVersion = "20260602-video-mainprofile";
+const mediaVersion = "20260602-video-ready";
 const media = (path: string) => `${path}?v=${mediaVersion}`;
 
 export const sections: Section[] = [
