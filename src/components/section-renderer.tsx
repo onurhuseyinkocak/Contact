@@ -795,7 +795,7 @@ function ProjectVideo({
   const isPhone = section.videoOrientation === "phone";
   const frameClass = isPhone
     ? compact
-      ? "mx-auto aspect-[9/19.5] w-[min(132px,34vw)] rounded-[1.6rem]"
+      ? "mx-auto aspect-[9/19.5] w-[min(120px,30vw)] rounded-[1.45rem]"
       : "mx-auto aspect-[9/19.5] w-[min(300px,32vw)] rounded-[2rem]"
     : compact
       ? "aspect-[1280/668] w-full rounded-[1.1rem]"
@@ -807,7 +807,7 @@ function ProjectVideo({
         "relative overflow-hidden bg-black/80 shadow-2xl",
         "ring-1 ring-white/10",
         frameClass,
-        compact ? "mb-6" : "",
+        compact ? "mb-4 sm:mb-5" : "",
       ].join(" ")}
       style={{
         boxShadow: `0 30px 90px -35px ${section.accentColor}66`,
@@ -890,7 +890,7 @@ function ProjectVideo({
 
 function ContactPanel() {
   return (
-    <div className="contact-panel-fit max-h-[calc(100svh-2rem)] overflow-y-auto overscroll-contain rounded-[1.2rem] border border-white/10 bg-black/35 p-4 shadow-2xl backdrop-blur-xl md:max-h-none md:overflow-visible md:p-5">
+    <div className="contact-panel-fit max-h-[calc(100svh-2rem)] overflow-y-auto overscroll-contain rounded-[1.2rem] border border-white/10 bg-black/35 p-4 shadow-2xl backdrop-blur-xl md:max-h-[calc(100svh-3rem)] md:p-5">
       <div className="flex items-center gap-4">
         <div
           aria-hidden="true"

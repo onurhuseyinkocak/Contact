@@ -187,12 +187,31 @@ img {
     overflow: visible;
   }
 
+  .project-copy-fit {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
   .cta-copy-fit {
     display: none !important;
   }
 
   .project-facts-fit {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap-row: 0.55rem !important;
+    margin-top: 0.9rem !important;
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
+  }
+
+  .project-facts-fit dt {
+    letter-spacing: 0.14em !important;
+  }
+
+  .project-facts-fit dd {
+    margin-top: 0.25rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
   }
 }
 

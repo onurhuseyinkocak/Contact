@@ -337,6 +337,6 @@ export const socials = {
   email: "info@vibecodingturkey.com",
   phone: "+905447131550",
   whatsapp: "https://wa.me/905447131550",
-  resume: "Onur Koçak — Resume.pdf",
+  resume: "onur-huseyin-kocak-resume.pdf",
   photo: "onur-photo.jpg",
 };
