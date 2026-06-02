@@ -28,7 +28,7 @@ export interface Section {
   characterScale?: number;
 }
 
-const mediaVersion = "20260602-video-webfix";
+const mediaVersion = "20260602-video-mainprofile";
 const media = (path: string) => `${path}?v=${mediaVersion}`;
 
 export const sections: Section[] = [
@@ -155,7 +155,7 @@ export const sections: Section[] = [
     stack: ["Next.js", "Supabase", "SwiftUI"],
     status: "Web + App Store",
     outcome: "Prompt discovery, copy/share flows, and a growing reusable prompt library.",
-    videoSrc: media("videos/promtable-demo.mp4"),
+    videoSrc: media("videos/promtable-demo-web.mp4"),
     videoPoster: media("posters/promtable-demo.jpg"),
     videoOrientation: "phone",
     characterRotation: -1,
