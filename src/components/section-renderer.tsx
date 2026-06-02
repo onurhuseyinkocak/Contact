@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import type { FormEvent } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { ExternalLink, Mail } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { sections, socials } from "@/data/sections";
 import type { Section } from "@/data/sections";
 import { DepthStage } from "./depth-stage";
@@ -144,7 +144,9 @@ export function SectionRenderer() {
               sections
                 .filter((section) => section.videoSrc && section.id !== "hero")
                 .map((section) => {
+                  const sectionIndex = sections.indexOf(section);
                   const isCurrent = active.id === section.id;
+                  const isNearActive = Math.abs(sectionIndex - activeIndex) <= 1;
                   return (
                     <motion.div
                       key={section.id}
@@ -164,7 +166,7 @@ export function SectionRenderer() {
                       <ProjectVideo
                         section={section}
                         active={isCurrent}
-                        shouldLoad
+                        shouldLoad={isCurrent || isNearActive}
                       />
                     </motion.div>
                   );
@@ -209,7 +211,9 @@ export function SectionRenderer() {
                   section={section}
                   isActive={i === activeIndex}
                   isMobileViewport={isMobileViewport}
-                  shouldLoadVideo
+                  shouldLoadVideo={
+                    isMobileViewport && Math.abs(i - activeIndex) <= 1
+                  }
                 />
               )}
             </section>
@@ -307,12 +311,6 @@ function HeroContent({
               className="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-white/70 transition-all hover:bg-white/5 active:scale-95 sm:px-7 sm:py-3"
             >
               Hire / build with me
-            </MagneticButton>
-            <MagneticButton
-              href={socials.resume}
-              className="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-white/55 transition-all hover:bg-white/5 active:scale-95 sm:px-7 sm:py-3"
-            >
-              Resume
             </MagneticButton>
           </motion.div>
 
@@ -610,50 +608,8 @@ function CTAContent({
             </div>
           </motion.div>
 
-          <motion.div
-            className="cta-links-fit mt-4 flex flex-wrap gap-2.5 sm:mt-5 sm:gap-3"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: reduced ? 0.1 : 0.5, delay: 0.3 }}
-          >
-            <MagneticButton
-              href={socials.linkedin}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition-all hover:bg-white/90 active:scale-95 sm:px-6 sm:py-3"
-            >
-              <ExternalLink size={15} strokeWidth={2.2} />
-              LinkedIn
-            </MagneticButton>
-            <MagneticButton
-              href={socials.github}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/70 transition-all hover:bg-white/5 active:scale-95 sm:px-6 sm:py-3"
-            >
-              <ExternalLink size={15} strokeWidth={2.2} />
-              GitHub
-            </MagneticButton>
-            <MagneticButton
-              href={socials.resume}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/70 transition-all hover:bg-white/5 active:scale-95 sm:px-6 sm:py-3"
-            >
-              <ExternalLink size={15} strokeWidth={2.2} />
-              Resume
-            </MagneticButton>
-            <MagneticButton
-              href={`tel:${socials.phone}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/70 transition-all hover:bg-white/5 active:scale-95 sm:px-6 sm:py-3"
-            >
-              {socials.phone}
-            </MagneticButton>
-            <MagneticButton
-              href={`mailto:${socials.email}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/70 transition-all hover:bg-white/5 active:scale-95 sm:px-6 sm:py-3"
-            >
-              <Mail size={15} strokeWidth={2.2} />
-              Email
-            </MagneticButton>
-          </motion.div>
-
           <motion.p
-            className="cta-built-fit mt-5 text-[10px] font-mono text-white/15"
+            className="cta-built-fit mt-4 text-[10px] font-mono text-white/15 sm:mt-5"
             initial={{ opacity: 0 }}
             animate={isActive ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
@@ -695,14 +651,44 @@ function ProjectVideo({
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
+
+    let cancelled = false;
+
+    const playActiveVideo = () => {
+      if (cancelled || !active) return;
+
+      video.muted = true;
+      video.playsInline = true;
+      const attempt = video.play();
+
+      if (attempt) {
+        void attempt.catch(() => {
+          window.setTimeout(() => {
+            if (!cancelled && active) {
+              void video.play().catch(() => undefined);
+            }
+          }, 250);
+        });
+      }
+    };
 
     if (active) {
-      void video.play().catch(() => undefined);
+      if (video.readyState >= 2) {
+        playActiveVideo();
+      } else {
+        video.addEventListener("canplay", playActiveVideo, { once: true });
+        video.load();
+      }
     } else {
       video.pause();
       video.currentTime = 0;
     }
+
+    return () => {
+      cancelled = true;
+      video.removeEventListener("canplay", playActiveVideo);
+    };
   }, [active, shouldLoad, section.videoSrc]);
 
   if (!section.videoSrc) return null;

@@ -233,8 +233,7 @@ img {
   }
 
   .cta-copy-fit,
-  .cta-desc-fit,
-  .cta-links-fit {
+  .cta-desc-fit {
     display: none !important;
   }
 
