@@ -190,11 +190,7 @@ export function SectionRenderer() {
               sections
                 .filter((section) => section.videoSrc && section.id !== "hero")
                 .map((section) => {
-                  const sectionIndex = sections.indexOf(section);
                   const isCurrent = active.id === section.id;
-                  const shouldWarm =
-                    sectionIndex >= activeIndex - 1 &&
-                    sectionIndex <= activeIndex + VIDEO_PRELOAD_LOOKAHEAD;
                   return (
                     <motion.div
                       key={section.id}
@@ -214,7 +210,7 @@ export function SectionRenderer() {
                       <ProjectVideo
                         section={section}
                         active={isCurrent}
-                        shouldLoad={isCurrent || shouldWarm}
+                        shouldLoad
                       />
                     </motion.div>
                   );
