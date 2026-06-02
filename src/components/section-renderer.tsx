@@ -11,7 +11,7 @@ import { MagneticButton } from "./magnetic-button";
 import { CursorGlow } from "./cursor-glow";
 import { NavDots } from "./nav-dots";
 
-const VIDEO_PRELOAD_LOOKAHEAD = 2;
+const VIDEO_PRELOAD_LOOKAHEAD = 3;
 
 export function SectionRenderer() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -68,6 +68,50 @@ export function SectionRenderer() {
     refs.forEach((ref) => observer.observe(ref!));
     return () => observer.disconnect();
   }, [splashDone]); // re-run when splash done to ensure refs ready
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateFromViewportCenter = () => {
+      frame = 0;
+      const viewportCenter = window.innerHeight / 2;
+      let bestIdx = -1;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      sectionRefs.current.forEach((section, i) => {
+        if (!section) return;
+
+        const rect = section.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+
+        const sectionCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(sectionCenter - viewportCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIdx = i;
+        }
+      });
+
+      if (bestIdx !== -1) {
+        setActiveIndex((current) => (current === bestIdx ? current : bestIdx));
+      }
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateFromViewportCenter);
+    };
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    scheduleUpdate();
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, [splashDone]);
 
   return (
     <>
