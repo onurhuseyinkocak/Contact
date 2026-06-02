@@ -793,7 +793,7 @@ function ProjectVideo({
       : "mx-auto aspect-[9/19.5] w-[min(300px,32vw)] rounded-[2rem]"
     : compact
       ? "aspect-[1280/668] w-full rounded-[1.1rem]"
-      : "aspect-[1280/668] w-full rounded-[1.4rem] md:w-[min(640px,38vw)]";
+      : "aspect-[1280/668] w-full rounded-[1.4rem] md:w-[min(720px,41vw)]";
 
   return (
     <div
