@@ -698,6 +698,9 @@ function ProjectVideo({
   shouldLoad?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [visibleVideoSrc, setVisibleVideoSrc] = useState<string | null>(null);
+  const isVideoVisible =
+    active && shouldLoad && visibleVideoSrc === section.videoSrc;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -707,6 +710,10 @@ function ProjectVideo({
       video.setAttribute("src", section.videoSrc);
     }
 
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = "auto";
     video.load();
 
     return () => {
@@ -721,31 +728,42 @@ function ProjectVideo({
     if (!video || !shouldLoad) return;
 
     let cancelled = false;
+    const retryDelays = [0, 120, 320, 700, 1400, 2600];
+    const retryTimers: number[] = [];
+
+    const revealIfMoving = () => {
+      if (!cancelled && video.readyState >= 2) {
+        setVisibleVideoSrc(section.videoSrc ?? null);
+      }
+    };
 
     const playActiveVideo = () => {
       if (cancelled || !active) return;
 
+      video.defaultMuted = true;
       video.muted = true;
       video.playsInline = true;
+      video.preload = "auto";
       const attempt = video.play();
 
       if (attempt) {
-        void attempt.catch(() => {
-          window.setTimeout(() => {
-            if (!cancelled && active) {
-              void video.play().catch(() => undefined);
-            }
-          }, 250);
-        });
+        void attempt.then(revealIfMoving).catch(() => undefined);
       }
     };
 
     if (active) {
-      if (video.readyState >= 2) {
-        playActiveVideo();
-      } else {
-        video.addEventListener("canplay", playActiveVideo, { once: true });
-      }
+      retryDelays.forEach((delay) => {
+        retryTimers.push(window.setTimeout(playActiveVideo, delay));
+      });
+      video.addEventListener("loadedmetadata", playActiveVideo);
+      video.addEventListener("loadeddata", playActiveVideo);
+      video.addEventListener("canplay", playActiveVideo);
+      video.addEventListener("playing", revealIfMoving);
+      video.addEventListener("timeupdate", revealIfMoving);
+      window.addEventListener("scroll", playActiveVideo, { passive: true });
+      window.addEventListener("pointerdown", playActiveVideo, { passive: true });
+      window.addEventListener("touchstart", playActiveVideo, { passive: true });
+      document.addEventListener("visibilitychange", playActiveVideo);
     } else {
       video.pause();
       video.currentTime = 0;
@@ -753,7 +771,16 @@ function ProjectVideo({
 
     return () => {
       cancelled = true;
+      retryTimers.forEach((timer) => window.clearTimeout(timer));
+      video.removeEventListener("loadedmetadata", playActiveVideo);
+      video.removeEventListener("loadeddata", playActiveVideo);
       video.removeEventListener("canplay", playActiveVideo);
+      video.removeEventListener("playing", revealIfMoving);
+      video.removeEventListener("timeupdate", revealIfMoving);
+      window.removeEventListener("scroll", playActiveVideo);
+      window.removeEventListener("pointerdown", playActiveVideo);
+      window.removeEventListener("touchstart", playActiveVideo);
+      document.removeEventListener("visibilitychange", playActiveVideo);
     };
   }, [active, shouldLoad, section.videoSrc]);
 
@@ -784,10 +811,24 @@ function ProjectVideo({
         transformStyle: "preserve-3d",
       }}
     >
-      {shouldLoad ? (
+      <div
+        aria-label={`${section.title} product video poster`}
+        role="img"
+        className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat"
+        style={{
+          backgroundImage: section.videoPoster
+            ? `url(${section.videoPoster})`
+            : undefined,
+        }}
+      />
+
+      {shouldLoad && (
         <video
           ref={videoRef}
-          className="h-full w-full object-contain"
+          className={[
+            "absolute inset-0 h-full w-full object-contain transition-opacity duration-150",
+            isVideoVisible ? "opacity-100" : "opacity-0",
+          ].join(" ")}
           src={section.videoSrc}
           poster={section.videoPoster}
           autoPlay={active}
@@ -797,22 +838,19 @@ function ProjectVideo({
           preload="auto"
           onLoadedData={(event) => {
             if (active) {
+              setVisibleVideoSrc(section.videoSrc ?? null);
               void event.currentTarget.play().catch(() => undefined);
             }
           }}
           onCanPlay={(event) => {
             if (active) {
+              setVisibleVideoSrc(section.videoSrc ?? null);
               void event.currentTarget.play().catch(() => undefined);
             }
           }}
+          onPlaying={() => setVisibleVideoSrc(section.videoSrc ?? null)}
+          onTimeUpdate={() => setVisibleVideoSrc(section.videoSrc ?? null)}
           aria-label={`${section.title} product video`}
-        />
-      ) : (
-        <div
-          aria-label={`${section.title} product video poster`}
-          role="img"
-          className="h-full w-full bg-contain bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${section.videoPoster})` }}
         />
       )}
     </div>

@@ -34,9 +34,9 @@ export const viewport: Viewport = {
 
 const assetBase = process.env.GITHUB_PAGES === "true" ? "/Contact" : "";
 const criticalVideoPreloads = [
-  "videos/didnthappen-preview.mp4",
-  "videos/dreammining-preview.mp4",
-  "videos/promtable-preview.mp4",
+  "videos/didnthappen-instant.mp4",
+  "videos/dreammining-instant.mp4",
+  "videos/promtable-instant.mp4",
 ];
 
 export default function RootLayout({
