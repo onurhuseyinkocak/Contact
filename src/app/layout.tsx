@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
-import { mediaVersion } from "@/data/sections";
+import { mediaVersion, socials } from "@/data/sections";
 import "./globals.css";
 
 const sitePath = "/Contact";
@@ -8,6 +8,7 @@ const siteTitle = "Onur Huseyin Kocak - AI Product Engineer";
 const siteDescription =
   "AI-native product engineer building and shipping iOS, web, automation, and product demo systems from idea to production.";
 const ogImage = `${sitePath}/posters/vibecodingturkey-demo.jpg`;
+const siteUrl = "https://onurhuseyinkocak.github.io/Contact/";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-geist-sans",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   applicationName: "Onur Huseyin Kocak Portfolio",
-  authors: [{ name: "Onur Huseyin Kocak", url: "https://onurhuseyinkocak.github.io/Contact/" }],
+  authors: [{ name: "Onur Huseyin Kocak", url: siteUrl }],
   creator: "Onur Huseyin Kocak",
   publisher: "Onur Huseyin Kocak",
   keywords: [
@@ -76,6 +77,47 @@ const criticalVideoPrefetches = [
   "videos/promtable-instant.mp4",
 ];
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      name: "Onur Huseyin Kocak",
+      url: siteUrl,
+      image: "https://onurhuseyinkocak.github.io/Contact/onur-photo.jpg",
+      jobTitle: "AI Product Engineer",
+      description: siteDescription,
+      email: `mailto:${socials.email}`,
+      telephone: socials.phone,
+      sameAs: [
+        socials.linkedin,
+        socials.github,
+        "https://vibecodingturkey.com",
+        "https://promtable.com",
+        "https://dream-mining.co",
+        "https://xforgea3d.com",
+        "https://onarika.net",
+      ],
+      knowsAbout: [
+        "AI product engineering",
+        "iOS development",
+        "SwiftUI",
+        "Next.js",
+        "Supabase",
+        "AI automation",
+        "Product prototyping",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      name: "Onur Huseyin Kocak Portfolio",
+      url: siteUrl,
+      description: siteDescription,
+      inLanguage: "en",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -84,6 +126,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
         {criticalVideoPrefetches.map((path) => (
           <link
             key={path}
