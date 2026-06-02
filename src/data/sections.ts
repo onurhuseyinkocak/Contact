@@ -332,7 +332,7 @@ export const sections: Section[] = [
 ];
 
 export const socials = {
-  linkedin: "https://linkedin.com/in/onurhuseyinkocak",
+  linkedin: "https://www.linkedin.com/in/onurhuseyinkocak",
   github: "https://github.com/onurhuseyinkocak",
   email: "info@vibecodingturkey.com",
   phone: "+905447131550",
