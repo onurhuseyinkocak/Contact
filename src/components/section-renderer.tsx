@@ -870,7 +870,7 @@ function ContactPanel() {
           <p className="contact-name-fit text-base font-semibold text-white">
             Onur Huseyin Kocak
           </p>
-          <p className="contact-subtitle-fit mt-1 text-sm leading-relaxed text-white/45">
+          <p className="contact-subtitle-fit mt-1 text-sm leading-relaxed text-white/55">
             AI product engineer. iOS, web, automation, MVP builds.
           </p>
         </div>
@@ -882,7 +882,7 @@ function ContactPanel() {
           className="grid min-h-11 grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-lg px-2.5 py-1.5 text-white/75 transition hover:bg-white/5 sm:px-3 sm:py-2"
         >
           <span>Email</span>
-          <span className="min-w-0 text-right font-mono text-[10px] text-white/60 [overflow-wrap:anywhere] sm:text-xs">
+          <span className="min-w-0 text-right font-mono text-[10px] text-white/70 [overflow-wrap:anywhere] sm:text-xs">
             {socials.email}
           </span>
         </a>
@@ -891,7 +891,7 @@ function ContactPanel() {
           className="grid min-h-11 grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-lg px-2.5 py-1.5 text-white/75 transition hover:bg-white/5 sm:px-3 sm:py-2"
         >
           <span>Phone</span>
-          <span className="min-w-0 text-right font-mono text-[10px] text-white/60 [overflow-wrap:anywhere] sm:text-xs">
+          <span className="min-w-0 text-right font-mono text-[10px] text-white/70 [overflow-wrap:anywhere] sm:text-xs">
             {socials.phone}
           </span>
         </a>
@@ -902,7 +902,7 @@ function ContactPanel() {
           className="grid min-h-11 grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-lg px-2.5 py-1.5 text-white/75 transition hover:bg-white/5 sm:px-3 sm:py-2"
         >
           <span>WhatsApp</span>
-          <span className="min-w-0 text-right font-mono text-[10px] text-white/60 sm:text-xs">
+          <span className="min-w-0 text-right font-mono text-[10px] text-white/70 sm:text-xs">
             Start chat
           </span>
         </a>
@@ -919,7 +919,7 @@ function ContactPanel() {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/15 px-3 text-xs font-medium text-white/70 transition hover:bg-white/5"
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-white/15 px-3 text-xs font-medium text-white/80 transition hover:bg-white/5"
           >
             {link.label}
           </a>
@@ -956,19 +956,19 @@ function ContactForm() {
     <form className="contact-form-fit mt-3 grid gap-2.5 sm:mt-4 sm:gap-3" onSubmit={handleSubmit}>
       <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
         <label className="grid min-w-0 gap-1.5">
-          <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/45">
+          <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/55">
             Name
           </span>
           <input
             name="name"
             required
             autoComplete="name"
-            className="h-9 w-full min-w-0 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-white/35 sm:h-10"
+            className="h-9 w-full min-w-0 rounded-lg border border-white/15 bg-white/[0.055] px-3 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-white/40 sm:h-10"
             placeholder="Your name"
           />
         </label>
         <label className="grid min-w-0 gap-1.5">
-          <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/45">
+          <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/55">
             Email
           </span>
           <input
@@ -976,30 +976,30 @@ function ContactForm() {
             name="email"
             required
             autoComplete="email"
-            className="h-9 w-full min-w-0 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-white/35 sm:h-10"
+            className="h-9 w-full min-w-0 rounded-lg border border-white/15 bg-white/[0.055] px-3 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-white/40 sm:h-10"
             placeholder="you@company.com"
           />
         </label>
       </div>
       <label className="grid min-w-0 gap-1.5">
-        <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/45">
+        <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/55">
           Project / budget
         </span>
         <input
           name="budget"
-          className="h-9 w-full min-w-0 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-white/35 sm:h-10"
+          className="h-9 w-full min-w-0 rounded-lg border border-white/15 bg-white/[0.055] px-3 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-white/40 sm:h-10"
           placeholder="MVP, iOS app, automation, hiring..."
         />
       </label>
       <label className="grid min-w-0 gap-1.5">
-        <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/45">
+        <span className="text-[9px] font-mono uppercase tracking-[0.16em] text-white/55">
           Message
         </span>
         <textarea
           name="message"
           required
           rows={3}
-          className="w-full min-w-0 resize-none rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm leading-relaxed text-white outline-none transition placeholder:text-white/25 focus:border-white/35"
+          className="w-full min-w-0 resize-none rounded-lg border border-white/15 bg-white/[0.055] px-3 py-2 text-sm leading-relaxed text-white outline-none transition placeholder:text-white/35 focus:border-white/40"
           placeholder="Tell me what you want to build or which role you are hiring for."
         />
       </label>
