@@ -20,6 +20,11 @@ export interface Section {
   stack?: string[];
   status?: string;
   outcome?: string;
+  caseStudy?: {
+    problem: string;
+    build: string;
+    result: string;
+  };
   proofPoints?: string[];
   videoSrc?: string;
   videoPoster?: string;
@@ -88,6 +93,14 @@ export const sections: Section[] = [
     stack: ["SwiftUI", "SwiftData", "Adapty"],
     status: "App Store",
     outcome: "A worry-to-proof habit loop with subscription-ready monetization.",
+    caseStudy: {
+      problem:
+        "Anxiety apps rarely show concrete evidence that feared outcomes did not happen.",
+      build:
+        "Built a SwiftUI + SwiftData worry log, proof review loop, and Adapty monetization layer.",
+      result:
+        "Shipped to App Store as a focused worry-to-proof product with subscription plumbing.",
+    },
     videoSrc: media("videos/didnthappen-instant.mp4"),
     videoPoster: media("posters/didnthappen-demo.jpg"),
     videoOrientation: "phone",
@@ -120,6 +133,14 @@ export const sections: Section[] = [
     stack: ["iOS", "Android", "Web", "Whisper"],
     status: "Live web",
     outcome: "Voice dream logging and symbolic AI interpretation across platforms.",
+    caseStudy: {
+      problem:
+        "Dream journals are passive; users need capture, memory, and interpretation in one flow.",
+      build:
+        "Built dream logging, AI Jungian analysis, card views, psyche maps, and voice input.",
+      result:
+        "Live web experience that turns dream entries into reusable symbolic insight.",
+    },
     videoSrc: media("videos/dreammining-instant.mp4"),
     videoPoster: media("posters/dreammining-demo.jpg"),
     videoOrientation: "desktop",
@@ -155,6 +176,14 @@ export const sections: Section[] = [
     stack: ["Next.js", "Supabase", "SwiftUI"],
     status: "Web + App Store",
     outcome: "Prompt discovery, copy/share flows, and a growing reusable prompt library.",
+    caseStudy: {
+      problem:
+        "Useful prompts are scattered and hard to reuse across models and workflows.",
+      build:
+        "Built web + iOS prompt discovery with Supabase, tags, copy, share, and library flows.",
+      result:
+        "Shipped live web and App Store surfaces for reusable, battle-tested prompts.",
+    },
     videoSrc: media("videos/promtable-instant.mp4"),
     videoPoster: media("posters/promtable-demo.jpg"),
     videoOrientation: "phone",
@@ -187,6 +216,14 @@ export const sections: Section[] = [
     stack: ["Next.js", "AI agents", "Community"],
     status: "Live platform",
     outcome: "A Turkish product-building education brand around AI coding workflows.",
+    caseStudy: {
+      problem:
+        "Non-technical builders need a practical path from idea to shipped app, not generic AI tutorials.",
+      build:
+        "Built a Next.js education platform around lessons, dashboards, AI agents, and build workflows.",
+      result:
+        "Live Turkish AI coding brand with a product-building curriculum and working platform.",
+    },
     videoSrc: media("videos/vibecodingturkey-instant.mp4"),
     videoPoster: media("posters/vibecodingturkey-demo.jpg"),
     videoOrientation: "desktop",
@@ -220,6 +257,14 @@ export const sections: Section[] = [
     stack: ["Medusa", "3D printing", "AI design"],
     status: "Live commerce",
     outcome: "A digital-to-physical product lab with storefront and product demos.",
+    caseStudy: {
+      problem:
+        "The 3D printing business needed a credible storefront and product demo system.",
+      build:
+        "Built commerce presence, product showcase, and AI-assisted design-to-fabrication workflow.",
+      result:
+        "Live store positioning a digital-to-physical product lab for custom 3D experiments.",
+    },
     videoSrc: media("videos/xforgea3d-instant.mp4"),
     videoPoster: media("posters/xforgea3d-demo.jpg"),
     videoOrientation: "desktop",
@@ -252,6 +297,14 @@ export const sections: Section[] = [
     stack: ["Next.js", "FastAPI", "Supabase", "Cron"],
     status: "Live system",
     outcome: "Content, growth, and operations automation controlled from one interface.",
+    caseStudy: {
+      problem:
+        "Content and growth operations were scattered across manual tools and repeatable tasks.",
+      build:
+        "Built automation command center with Next.js, FastAPI, Supabase, cron, and AI pipelines.",
+      result:
+        "Live system for controlling content, growth, and operations workflows from one interface.",
+    },
     videoSrc: media("videos/onarika-instant.mp4"),
     videoPoster: media("posters/onarika-demo.jpg"),
     videoOrientation: "desktop",

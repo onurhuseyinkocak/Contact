@@ -1030,20 +1030,29 @@ function ContactForm() {
 }
 
 function ProjectFacts({ section }: { section: Section }) {
-  const facts = [
-    { label: "Role", value: section.role },
-    { label: "Stack", value: section.stack?.join(" / ") },
-    { label: "Status", value: section.status },
-    { label: "Outcome", value: section.outcome },
-  ].filter((fact): fact is { label: string; value: string } =>
+  const facts = section.caseStudy
+    ? [
+        { label: "Role", value: section.role },
+        { label: "Problem", value: section.caseStudy.problem },
+        { label: "Build", value: section.caseStudy.build },
+        { label: "Result", value: section.caseStudy.result },
+      ]
+    : [
+        { label: "Role", value: section.role },
+        { label: "Stack", value: section.stack?.join(" / ") },
+        { label: "Status", value: section.status },
+        { label: "Outcome", value: section.outcome },
+      ];
+
+  const visibleFacts = facts.filter((fact): fact is { label: string; value: string } =>
     Boolean(fact.value)
   );
 
-  if (facts.length === 0) return null;
+  if (visibleFacts.length === 0) return null;
 
   return (
     <dl className="project-facts-fit mt-6 grid max-w-lg gap-x-5 gap-y-3 border-y border-white/10 py-4 sm:grid-cols-2 sm:gap-y-4 sm:py-5">
-      {facts.map((fact) => (
+      {visibleFacts.map((fact) => (
         <div key={fact.label} className="min-w-0">
           <dt className="text-[9px] font-mono uppercase tracking-[0.24em] text-white/25">
             {fact.label}
