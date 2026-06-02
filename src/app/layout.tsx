@@ -7,7 +7,7 @@ const sitePath = "/Contact";
 const siteTitle = "Onur Huseyin Kocak - AI Product Engineer";
 const siteDescription =
   "AI-native product engineer building and shipping iOS, web, automation, and product demo systems from idea to production.";
-const ogImage = `${sitePath}/posters/vibecodingturkey-demo.jpg`;
+const ogImage = `${sitePath}/og-image.jpg`;
 const siteUrl = "https://onurhuseyinkocak.github.io/Contact/";
 
 const spaceGrotesk = Space_Grotesk({
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 720,
-        height: 376,
+        width: 1200,
+        height: 630,
         alt: "Onur Huseyin Kocak portfolio product demo preview",
       },
     ],
