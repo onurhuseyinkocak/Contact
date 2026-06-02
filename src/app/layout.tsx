@@ -33,7 +33,7 @@ export const viewport: Viewport = {
 };
 
 const assetBase = process.env.GITHUB_PAGES === "true" ? "/Contact" : "";
-const criticalVideoPreloads = [
+const criticalVideoPrefetches = [
   "videos/didnthappen-instant.mp4",
   "videos/dreammining-instant.mp4",
   "videos/promtable-instant.mp4",
@@ -47,14 +47,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <head>
-        {criticalVideoPreloads.map((path) => (
+        {criticalVideoPrefetches.map((path) => (
           <link
             key={path}
-            rel="preload"
-            as="video"
+            rel="prefetch"
             href={`${assetBase}/${path}?v=${mediaVersion}`}
             type="video/mp4"
-            fetchPriority="high"
           />
         ))}
       </head>

@@ -69,9 +69,9 @@ export const sections: Section[] = [
   {
     id: "didnthappen",
     title: "Didn't Happen",
-    subtitle: "iOS anxiety evidence tracker",
+    subtitle: "CBT-informed anxiety evidence tracker",
     description:
-      "An app that helps people see how often their fears never come true. Track worries, collect proof, build emotional resilience.",
+      "A CBT-informed app that helps people see how often feared outcomes do not happen. Track worries, collect proof, and practice evidence-based reframing.",
     characterImage: "/images/onur/didnthappen-detective.png",
     characterAlt: "Onur as a calm anxiety detective",
     backgroundImage: "/images/backgrounds/didnthappen-evidence-room.jpg",
@@ -95,11 +95,11 @@ export const sections: Section[] = [
     outcome: "A worry-to-proof habit loop with subscription-ready monetization.",
     caseStudy: {
       problem:
-        "Anxiety apps rarely show concrete evidence that feared outcomes did not happen.",
+        "Anxiety apps often miss the CBT principle that evidence review can weaken catastrophic predictions.",
       build:
-        "Built a SwiftUI + SwiftData worry log, proof review loop, and Adapty monetization layer.",
+        "Built a SwiftUI + SwiftData worry log around CBT-style cognitive reframing, proof review, and Adapty monetization.",
       result:
-        "Shipped to App Store as a focused worry-to-proof product with subscription plumbing.",
+        "Shipped to App Store as an evidence-informed worry-to-proof product with subscription plumbing.",
     },
     videoSrc: media("videos/didnthappen-instant.mp4"),
     videoPoster: media("posters/didnthappen-demo.jpg"),

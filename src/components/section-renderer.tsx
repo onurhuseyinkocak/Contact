@@ -12,6 +12,7 @@ import { CursorGlow } from "./cursor-glow";
 import { NavDots } from "./nav-dots";
 
 const VIDEO_PRELOAD_LOOKAHEAD = 3;
+const VIDEO_PLAYBACK_RATES = [1, 2, 4] as const;
 
 export function SectionRenderer() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -695,6 +696,8 @@ function ProjectVideo({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [visibleVideoSrc, setVisibleVideoSrc] = useState<string | null>(null);
+  const [playbackRate, setPlaybackRate] =
+    useState<(typeof VIDEO_PLAYBACK_RATES)[number]>(1);
   const isVideoVisible =
     active && shouldLoad && visibleVideoSrc === section.videoSrc;
 
@@ -721,6 +724,12 @@ function ProjectVideo({
 
   useEffect(() => {
     const video = videoRef.current;
+    if (!video) return;
+    video.playbackRate = playbackRate;
+  }, [playbackRate, section.videoSrc]);
+
+  useEffect(() => {
+    const video = videoRef.current;
     if (!video || !shouldLoad) return;
 
     let cancelled = false;
@@ -740,6 +749,7 @@ function ProjectVideo({
       video.muted = true;
       video.playsInline = true;
       video.preload = "auto";
+      video.playbackRate = playbackRate;
       const attempt = video.play();
 
       if (attempt) {
@@ -778,7 +788,7 @@ function ProjectVideo({
       window.removeEventListener("touchstart", playActiveVideo);
       document.removeEventListener("visibilitychange", playActiveVideo);
     };
-  }, [active, shouldLoad, section.videoSrc]);
+  }, [active, playbackRate, shouldLoad, section.videoSrc]);
 
   if (!section.videoSrc) return null;
 
@@ -833,12 +843,14 @@ function ProjectVideo({
           playsInline
           preload="auto"
           onLoadedData={(event) => {
+            event.currentTarget.playbackRate = playbackRate;
             if (active) {
               setVisibleVideoSrc(section.videoSrc ?? null);
               void event.currentTarget.play().catch(() => undefined);
             }
           }}
           onCanPlay={(event) => {
+            event.currentTarget.playbackRate = playbackRate;
             if (active) {
               setVisibleVideoSrc(section.videoSrc ?? null);
               void event.currentTarget.play().catch(() => undefined);
@@ -849,6 +861,29 @@ function ProjectVideo({
           aria-label={`${section.title} product video`}
         />
       )}
+
+      <div
+        className="absolute right-2 top-2 z-10 flex rounded-full border border-white/10 bg-black/70 p-1 shadow-lg backdrop-blur-md"
+        aria-label={`${section.title} video speed`}
+      >
+        {VIDEO_PLAYBACK_RATES.map((rate) => (
+          <button
+            key={rate}
+            type="button"
+            onClick={() => setPlaybackRate(rate)}
+            className="min-h-7 min-w-8 rounded-full px-2 text-[10px] font-mono font-semibold text-white/65 transition hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
+            style={{
+              backgroundColor:
+                playbackRate === rate ? section.accentColor : undefined,
+              color: playbackRate === rate ? "#020617" : undefined,
+            }}
+            aria-pressed={playbackRate === rate}
+            aria-label={`Play ${section.title} video at ${rate}x`}
+          >
+            {rate}x
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
