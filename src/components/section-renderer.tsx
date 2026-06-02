@@ -15,6 +15,7 @@ export function SectionRenderer() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [splashDone, setSplashDone] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [warmAllVideos, setWarmAllVideos] = useState(false);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const reduced = useReducedMotion();
   const active = sections[activeIndex];
@@ -36,6 +37,12 @@ export function SectionRenderer() {
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
   }, []);
+
+  useEffect(() => {
+    if (!splashDone) return;
+    const timer = window.setTimeout(() => setWarmAllVideos(true), 900);
+    return () => window.clearTimeout(timer);
+  }, [splashDone]);
 
   /* Intersection observer — runs after first render so refs are populated */
   useEffect(() => {
@@ -118,39 +125,60 @@ export function SectionRenderer() {
         </div>
 
         {/* Fixed product video — desktop only */}
-        <div className="hidden md:flex fixed top-0 right-0 w-[45%] h-screen z-[8] items-center justify-center pr-8 lg:pr-14 pointer-events-none">
-          <AnimatePresence mode="wait">
-            {!isMobileViewport && active.id === "hero" ? (
-              <motion.div
-                key="hero-signal"
-                initial={{ opacity: 0, y: 24, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -18, scale: 0.98 }}
-                transition={{
-                  duration: reduced ? 0.1 : 0.45,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="pointer-events-auto"
-              >
-                <HeroSignalPanel />
-              </motion.div>
-            ) : !isMobileViewport && active.videoSrc ? (
-              <motion.div
-                key={active.id}
-                initial={{ opacity: 0, y: 24, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -18, scale: 0.98 }}
-                transition={{
-                  duration: reduced ? 0.1 : 0.45,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="pointer-events-auto"
-              >
-                <ProjectVideo section={active} active />
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
+        <div className="hidden md:block fixed top-0 right-0 w-[45%] h-screen z-[8] pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center pr-8 lg:pr-14">
+            <motion.div
+              animate={
+                !isMobileViewport && active.id === "hero"
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: -18, scale: 0.98 }
+              }
+              initial={false}
+              transition={{
+                duration: reduced ? 0.1 : 0.42,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="pointer-events-auto"
+              style={{
+                pointerEvents:
+                  !isMobileViewport && active.id === "hero" ? "auto" : "none",
+              }}
+            >
+              <HeroSignalPanel />
+            </motion.div>
+
+            {sections
+              .filter((section) => section.videoSrc && section.id !== "hero")
+              .map((section) => {
+                const isCurrent = !isMobileViewport && active.id === section.id;
+                return (
+                  <motion.div
+                    key={section.id}
+                    animate={
+                      isCurrent
+                        ? { opacity: 1, y: 0, scale: 1 }
+                        : { opacity: 0, y: 18, scale: 0.98 }
+                    }
+                    initial={false}
+                    transition={{
+                      duration: reduced ? 0.1 : 0.42,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="absolute inset-0 flex items-center justify-center pr-8 lg:pr-14"
+                    style={{ pointerEvents: isCurrent ? "auto" : "none" }}
+                  >
+                    <ProjectVideo
+                      section={section}
+                      active={isCurrent}
+                      shouldLoad
+                    />
+                  </motion.div>
+                );
+              })}
+          </div>
         </div>
+
+        <VideoWarmup activeIndex={activeIndex} warmAll={warmAllVideos} />
 
         {/* Progress bar */}
         <motion.div
@@ -189,6 +217,7 @@ export function SectionRenderer() {
                   section={section}
                   isActive={i === activeIndex}
                   isMobileViewport={isMobileViewport}
+                  shouldLoadVideo
                 />
               )}
             </section>
@@ -196,6 +225,42 @@ export function SectionRenderer() {
         </div>
       </div>
     </>
+  );
+}
+
+function VideoWarmup({
+  activeIndex,
+  warmAll,
+}: {
+  activeIndex: number;
+  warmAll: boolean;
+}) {
+  const warmSections = sections
+    .map((section, index) => ({ section, index }))
+    .filter(
+      ({ section, index }) =>
+        section.videoSrc &&
+        section.id !== "hero" &&
+        (warmAll || Math.abs(index - activeIndex) <= 2)
+    );
+
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 h-px w-px overflow-hidden opacity-0"
+    >
+      {warmSections.map(({ section }) => (
+        <video
+          key={section.id}
+          src={section.videoSrc}
+          poster={section.videoPoster}
+          muted
+          playsInline
+          preload="auto"
+          tabIndex={-1}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -417,10 +482,12 @@ function ProjectContent({
   section,
   isActive,
   isMobileViewport,
+  shouldLoadVideo,
 }: {
   section: Section;
   isActive: boolean;
   isMobileViewport: boolean;
+  shouldLoadVideo: boolean;
 }) {
   const reduced = useReducedMotion();
 
@@ -431,6 +498,7 @@ function ProjectContent({
           section={section}
           compact
           active={isActive && isMobileViewport}
+          shouldLoad={shouldLoadVideo}
         />
       </div>
 
@@ -660,11 +728,27 @@ function ProjectVideo({
   section,
   compact = false,
   active = true,
+  shouldLoad = true,
 }: {
   section: Section;
   compact?: boolean;
   active?: boolean;
+  shouldLoad?: boolean;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (active) {
+      void video.play().catch(() => undefined);
+    } else {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [active, shouldLoad, section.videoSrc]);
+
   if (!section.videoSrc) return null;
 
   const isPhone = section.videoOrientation === "phone";
@@ -692,16 +776,17 @@ function ProjectVideo({
         transformStyle: "preserve-3d",
       }}
     >
-      {active ? (
+      {shouldLoad ? (
         <video
+          ref={videoRef}
           className="h-full w-full object-contain"
           src={section.videoSrc}
           poster={section.videoPoster}
-          autoPlay
+          autoPlay={active}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-label={`${section.title} product video`}
         />
       ) : (
@@ -730,8 +815,10 @@ function ContactPanel() {
           }}
         />
         <div className="min-w-0">
-          <p className="text-base font-semibold text-white">Onur Huseyin Kocak</p>
-          <p className="mt-1 text-sm leading-relaxed text-white/45">
+          <p className="contact-name-fit text-base font-semibold text-white">
+            Onur Huseyin Kocak
+          </p>
+          <p className="contact-subtitle-fit mt-1 text-sm leading-relaxed text-white/45">
             AI product engineer. iOS, web, automation, MVP builds.
           </p>
         </div>

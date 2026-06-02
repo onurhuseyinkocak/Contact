@@ -270,16 +270,85 @@ img {
 @media (max-width: 360px), (max-height: 620px) {
   .cta-section-fit {
     justify-content: flex-start !important;
-    padding-top: 0.75rem !important;
-    padding-bottom: 0.75rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
   }
 
   .contact-panel-fit {
     max-height: calc(100svh - 1.5rem) !important;
+    padding: 0.7rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .contact-name-fit {
+    font-size: 0.92rem !important;
+  }
+
+  .contact-subtitle-fit {
+    display: none !important;
+  }
+
+  .contact-photo-fit {
+    width: 3rem !important;
+    height: 3rem !important;
+    border-radius: 0.85rem !important;
+  }
+
+  .contact-rows-fit {
+    margin-top: 0.45rem !important;
+    gap: 0.1rem !important;
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
+  }
+
+  .contact-rows-fit a {
+    min-height: 2rem !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.8rem !important;
   }
 
   .contact-links-fit {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.35rem !important;
+    margin-top: 0.45rem !important;
+  }
+
+  .contact-links-fit a {
+    min-height: 2rem !important;
+    padding-left: 0.35rem !important;
+    padding-right: 0.35rem !important;
+    font-size: 0.68rem !important;
+  }
+
+  .contact-form-fit {
+    margin-top: 0.45rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .contact-form-fit label {
+    gap: 0.15rem !important;
+  }
+
+  .contact-form-fit input {
+    height: 1.95rem !important;
+    padding-left: 0.6rem !important;
+    padding-right: 0.6rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .contact-form-fit textarea {
+    min-height: 3rem !important;
+    max-height: 3rem !important;
+    padding: 0.42rem 0.6rem !important;
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .contact-form-fit button,
+  .contact-form-fit a {
+    min-height: 2.15rem !important;
+    padding: 0.38rem 0.85rem !important;
+    font-size: 0.78rem !important;
   }
 }
 
